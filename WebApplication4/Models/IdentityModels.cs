@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace WebApplication4.Models
 {
@@ -16,6 +18,8 @@ namespace WebApplication4.Models
             // Dodaj tutaj niestandardowe oświadczenia użytkownika
             return userIdentity;
         }
+
+        public virtual ICollection<NoteModel> Notes { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -23,11 +27,15 @@ namespace WebApplication4.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
+
+
         }
-        
+
+        public virtual DbSet<NoteModel> Notes { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+
         }
     }
 }
