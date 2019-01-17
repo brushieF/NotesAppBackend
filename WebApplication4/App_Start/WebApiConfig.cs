@@ -5,7 +5,8 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
-
+using Unity;
+using WebApplication4.Repository;
 using System.Web.Http.Cors;
 
 namespace WebApplication4
@@ -18,6 +19,9 @@ namespace WebApplication4
             // Skonfiguruj składnik Web API, aby korzystał tylko z uwierzytelniania za pomocą tokenów bearer.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            var container = new UnityContainer();
+            container.RegisterType<INoteRepository, NoteRepository>();
+            config.DependencyResolver = new UnityResolver(container);
 
             //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "GET,POST");
 
