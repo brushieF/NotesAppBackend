@@ -12,10 +12,10 @@ namespace WebApplication4.Repository
 	public interface INoteRepository : IDisposable
 	{
         IEnumerable<NoteModel> GetNotes(string userId);
-        NoteModel GetNote(int noteID);
+        NoteModel GetNote(int noteID, string userID);
         void InsertNote(NoteModel note, string userID);
-        void DeleteNote(int noteID);
-        void UpdateNote(NoteModel note);
+        void DeleteNote(int noteID, string userID);
+        void UpdateNote(NoteModel note, string userID);
         void Save();
 	}
 }

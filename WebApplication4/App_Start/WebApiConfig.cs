@@ -20,9 +20,10 @@ namespace WebApplication4
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
             var container = new UnityContainer();
+            
             container.RegisterType<INoteRepository, NoteRepository>();
             config.DependencyResolver = new UnityResolver(container);
-
+            
             //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "GET,POST");
 
             //config.EnableCors(cors);

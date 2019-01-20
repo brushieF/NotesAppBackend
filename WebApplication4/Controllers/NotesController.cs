@@ -24,28 +24,19 @@ namespace WebApplication4.Controllers
             return _noteRepository.GetNotes(User.Identity.GetUserId()).Select(x=>x);
         }
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         public void Post([FromBody]NoteModel value)
         {
             _noteRepository.InsertNote(value, User.Identity.GetUserId());
         }
 
-        // PUT api/values/5
         public void Put(int id, [FromBody]NoteModel note)
         {
-            _noteRepository.InsertNote(note,User.Identity.GetUserId());
+            _noteRepository.UpdateNote(note,User.Identity.GetUserId());
         }
 
-        // DELETE api/values/5
         public void Delete(int id)
         {
-            _noteRepository.DeleteNote(id);
+            _noteRepository.DeleteNote(id, User.Identity.GetUserId());
         }
     }
 }

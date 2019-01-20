@@ -26,9 +26,9 @@ namespace WebApplication4.Repository
             this._dbContext = context;
         }
 
-        public void DeleteNote(int noteID)
+        public void DeleteNote(int noteID, string userID)
         {
-            NoteModel noteToRemove = _dbContext.Notes.SingleOrDefault(x => x.NoteID == noteID);
+            NoteModel noteToRemove = _dbContext.Notes.SingleOrDefault(x => x.NoteID == noteID && x.UserID.Id == userID);
             if (noteToRemove == null) return;
             _dbContext.Notes.Remove(noteToRemove);
             Save();
@@ -39,9 +39,11 @@ namespace WebApplication4.Repository
            
         }
 
-        public NoteModel GetNote(int noteID)
+        public NoteModel GetNote(int noteID, string userID)
         {
-            throw new NotImplementedException();
+            IEnumerable<NoteModel> filteredNotes = _dbContext.Notes.Where(x => x.UserID.Id == userID && x.NoteID == noteID);
+
+            return filteredNotes.ElementAtOrDefault(0);
         }
 
         public IEnumerable<NoteModel> GetNotes(string userID)
@@ -59,14 +61,21 @@ namespace WebApplication4.Repository
             Save();
         }
 
+        public void UpdateNote(NoteModel note, string userID)
+        {
+            NoteModel noteToEdit = _dbContext.Notes.SingleOrDefault(x => x.NoteID == note.NoteID && x.UserID.Id == userID);
+            noteToEdit.Content = note.Content;
+
+            noteToEdit.R = note.R;
+            noteToEdit.G = note.G;
+            noteToEdit.B = note.B;
+
+            Save();
+        }
+
         public void Save()
         {
             _dbContext.SaveChanges();
-        }
-
-        public void UpdateNote(NoteModel note)
-        {
-            throw new NotImplementedException();
         }
     }
 }
