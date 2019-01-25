@@ -22,8 +22,9 @@ namespace WebApplication4.Controllers
         public IEnumerable<NoteModel> Get()
         {
             return _noteRepository.GetNotes(User.Identity.GetUserId()).Select(x=>x);
-        }
 
+        }
+     
         public void Post([FromBody]NoteModel value)
         {
             _noteRepository.InsertNote(value, User.Identity.GetUserId());

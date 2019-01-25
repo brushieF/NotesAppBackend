@@ -17,5 +17,6 @@ namespace WebApplication4.Repository
         void DeleteNote(int noteID, string userID);
         void UpdateNote(NoteModel note, string userID);
         void Save();
+
 	}
 }
